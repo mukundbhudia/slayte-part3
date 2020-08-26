@@ -1,9 +1,21 @@
-var http = require("http");
+const axios = require("axios");
 
-//create a server object:
-http
-  .createServer(function(req, res) {
-    res.write("Hello World!"); //write a response to the client
-    res.end(); //end the response
-  })
-  .listen(8080); //the server object listens on port 8080
+const API_ENDPOINT = "https://air-qual-api.herokuapp.com/";
+
+const loadInstance = async () => {
+  let response = null;
+  try {
+    response = await axios.put(API_ENDPOINT, {
+      params: {
+        payload: "test"
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+  if (response) {
+    console.log(response.data);
+  }
+};
+
+loadInstance();
